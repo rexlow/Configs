@@ -3,11 +3,13 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/rexlow/.oh-my-zsh
+export TERM="xterm-256color"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +53,11 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-syntax-highlighting)
+DEFAULT_USER=$USER
+# prompt_dir() {
+#   prompt_segment blue black "${PWD##*/}"
+# }
 
 source $ZSH/oh-my-zsh.sh
 
@@ -59,8 +65,6 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export PATH=$PATH:./node_modules/.bin 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -84,14 +88,16 @@ export PATH=$PATH:./node_modules/.bin
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias ohmyzsh="mate ~/.oh-my-zsh"source /Users/rexlow/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+alias lsz="du -hs * | sort -rh"
 alias cdrj="cd /Users/rexlow/Documents/Developer/ReactJS"
 alias cdrn="cd /Users/rexlow/Documents/Developer/React\ Native/"
 alias cdrv="cd /Users/rexlow/Documents/Developer/React\ Native/ResidentValet"
 alias cdrt="cd /Users/rexlow/Documents/Developer/React\ Native/traildog-app"
 alias rn="react-native run-ios"
 alias rna="react-native run-android"
+alias startandroid="cd /Users/rexlow/Library/Android/sdk/tools && emulator -avd Pixel_2_API_25 -netdelay none -netspeed full"
 alias releaseandroid="cd android && ./gradlew assembleRelease"
 alias c="clear"
 alias o="open ."
@@ -103,9 +109,8 @@ alias gpush="git push"
 alias gfp="git push -u origin master"
 alias py="python"
 alias cddd="cd Documents/Developer"
-alias cl="clisp"
 alias cdml="cd Documents/Y2S2/Machine\ Learning/MiniProject/House\ Prices"
-alias cdnex="/Users/rexlow/Documents/Work/NEX"
+alias cdde="cd /Users/rexlow/Documents/Y3S2/PSM/DeepEye";
 
 #alias for yarn
 alias ys="yarn start"
@@ -117,6 +122,7 @@ alias ye="yarn run eject"
 #alias ev3 ssh
 alias sshev3="ssh -l rexlow robot@ev3dev.local"
 alias ev3="robot@ev3dev.local:/home/robot/files"
+alias scpev3image="scp robot@ev3dev.local:/home/robot/gcv-1/images/result.png ./"
 
 #alias for zsh
 alias topm="top -o mem"
@@ -126,17 +132,43 @@ alias helloworld="sudo howmanypeoplearearound -o test.json -a en0"
 
 alias jp="jupyter notebook"
 
-source /Users/rexlow/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias progress="git log --since="1 week ago" --numstat --pretty="%H"| awk 'NF==3 {plus+=$1; minus+=$2} END {printf("+%d, -%d\n", plus, minus)}'"
+# android path
+export ANDROID_SDK_ROOT=/Users/rexlow/Library/Android/sdk
+# export ANDROID_HOME=/Users/rexlow/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+# export ANDROID_HOME=/usr/local/share/android-sdk
+# export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+# export PATH=$PATH:/usr/local/opt/android/tools
+# export PATH=$PATH:/usr/local/opt/android/platform-tools
+export PATH=$PATH:/Applications/XAMPP/xamppfiles/bin
 
+# Anaconda
+# export PATH="./anaconda2/bin:$PATH"
+# export PATH="/anaconda3/bin:$PATH"
+# export CLOUDSDK=$(which python2)
+
+# use conda dist seperately
+# export PATH=$PATH:/Users/rexlow/anaconda2/bin
+# alias pyconda='export PATH="/Users/rexlow/anaconda2/bin:$PATH"'
+# alias pyconda3="export PATH="/Users/rexlow/anaconda2/bin:$PATH" && source activate py36"
+
+# miniconda3
+# export PATH=$PATH:/Users/rexlow/miniconda3/bin
+
+source /Users/rexlow/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/rexlow/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/rexlow/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/rexlow/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/rexlow/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/rexlow/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/rexlow/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/rexlow/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/rexlow/google-cloud-sdk/completion.zsh.inc'; fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="/usr/local/opt/openssl/bin:$PATH"
+# google cloud credentials
+# export GOOGLE_APPLICATION_CREDENTIALS=/Users/rexlow/google-cloud/apikey.json
+# export GOOGLE_APPLICATION_CREDENTIALS=/Users/rexlow/google-cloud/learn-kubernetes-apikey.json
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/rexlow/google-cloud/DeepEye-e80f54ea2a82.json
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Homeexport PATH="/usr/local/opt/gettext/bin:$PATH"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home
 
-# anaconda
-export PATH="/Users/rexlow/anaconda/bin:$PATH"
+. /Users/rexlow/torch/install/bin/torch-activate
